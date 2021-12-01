@@ -1,11 +1,21 @@
-import React from 'react';
-import './App.css';
-import TodoList from './components/TodoList';
+import React from "react";
+import "./App.css";
+import TodoList from "./components/TodoList";
+import TodoDetail from "./pages/TodoDetail";
+import { BrowserRouter, Route , Routes } from "react-router-dom";
+import { createBrowserHistory } from "history";
+
+const history = createBrowserHistory();
 
 function App() {
   return (
-    <div className='todo-app'>
-      <TodoList />
+    <div className="todo-app">
+      <BrowserRouter location={history.location} navigator={history}>
+      <Routes>
+        <Route exact path="/" element={<TodoList />} />
+        <Route exact path="/todo-detail/:id" element={<TodoDetail />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

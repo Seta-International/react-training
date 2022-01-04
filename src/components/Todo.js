@@ -10,11 +10,7 @@ const Todo = ({ todos, onCompleteTodo, onRemoveTodo }) => {
         className={todo.completed ? "todo-row complete" : "todo-row"}
       >
         <Link className="link" to={`/todo-detail/${todo.id}`}>
-          <div>
-            {todo.title.length > 50
-              ? todo.title.slice(0, 50) + "..."
-              : todo.title}
-          </div>
+          <div>{todo.title}</div>
         </Link>
       </div>
       <button

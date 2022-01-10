@@ -1,20 +1,17 @@
 import { Link, useParams } from "react-router-dom";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateTodo } from "../components/features/todos/todosSlice";
 
-const mapStateToProps = (state) => ({
-  todos: state.todos,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onUpdateTodo: (todo) => dispatch(updateTodo(todo)),
-});
-
-const TodoDetail = ({ todos, onUpdateTodo }) => {
+const TodoDetail = () => {
   let { id } = useParams();
+
+  const todos = useSelector((state) => state.todos);
+
+  const dispatch = useDispatch();
+  const onUpdateTodo = (todo) => dispatch(updateTodo(todo));
   let textUpdate = "";
 
-  let isTodo = todos.find((todo) => todo.id === id);
+  let matchedTodo = todos.find((todo) => todo.id === id);
 
   return (
     <div className="note">
@@ -22,7 +19,7 @@ const TodoDetail = ({ todos, onUpdateTodo }) => {
         onChange={(e) => {
           textUpdate = e.target.value;
         }}
-        placeholder={isTodo ? isTodo.title : ''}
+        placeholder={matchedTodo ? matchedTodo.title : ""}
       ></textarea>
       <div>
         <button onClick={onUpdateTodo}>
@@ -35,4 +32,4 @@ const TodoDetail = ({ todos, onUpdateTodo }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoDetail);
+export default TodoDetail;

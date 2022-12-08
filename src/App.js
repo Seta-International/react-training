@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import TodoList from "./components/TodoList";
+import TodoList from "./pages/TodoList";
 import TodoDetail from "./pages/TodoDetail";
 import { BrowserRouter, Route , Routes } from "react-router-dom";
 import { createBrowserHistory } from "history";

@@ -1,14 +1,17 @@
 import { Link, useParams } from "react-router-dom";
-import { connect } from "react-redux";
-import { updateTodo } from "../actions";
+import { useDispatch, useSelector } from "react-redux";
+import { updateTodo } from "../components/features/todos/todosSlice";
 
-const mapDispatchToProps = (dispatch) => ({
-  onUpdateTodo: (id, text) => dispatch(updateTodo(id, text)),
-});
-
-const TodoDetail = ({ onUpdateTodo }) => {
+const TodoDetail = () => {
   let { id } = useParams();
+
+  const todos = useSelector((state) => state.todos);
+
+  const dispatch = useDispatch();
+  const onUpdateTodo = (todo) => dispatch(updateTodo(todo));
   let textUpdate = "";
+
+  let matchedTodo = todos.find((todo) => todo.id === id);
 
   return (
     <div className="note">
@@ -16,12 +19,17 @@ const TodoDetail = ({ onUpdateTodo }) => {
         onChange={(e) => {
           textUpdate = e.target.value;
         }}
+        placeholder={matchedTodo ? matchedTodo.title : ""}
       ></textarea>
       <div>
-        <button onClick={() => onUpdateTodo(id, textUpdate)}><Link className = 'link' to='/'>Update</Link></button>
+        <button onClick={onUpdateTodo}>
+          <Link className="link" to="/">
+            Update
+          </Link>
+        </button>
       </div>
     </div>
   );
 };
 
-export default connect(null, mapDispatchToProps)(TodoDetail);
+export default TodoDetail;

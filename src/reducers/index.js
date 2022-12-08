@@ -1,8 +1,6 @@
-import { combineReducers } from 'redux'
-import todos from './todos'
-import fetch from './fetch'
+import { combineReducers } from "redux";
+import todosReducer from "../components/features/todos/todosSlice";
 
 export default combineReducers({
-  todos,
-  fetch
-})
+  todos: todosReducer,
+});
